@@ -13,12 +13,14 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import com.cheng.shiro.dao.UserDao;
 import com.cheng.shiro.vo.User;
+import org.apache.shiro.util.SimpleByteSource;
 
 /**
  * @author chengchenrui
@@ -70,7 +72,7 @@ public class CustomRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,
             password, "customRealm");
         //加盐
-        simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username));
+//        simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username));
         return simpleAuthenticationInfo;
     }
 
@@ -83,7 +85,8 @@ public class CustomRealm extends AuthorizingRealm {
     }
 
     public static void main(String[] args) {
-        Md5Hash md5Hash = new Md5Hash("123456", "Mark");
+        System.out.println(new SimpleHash("MD5", new SimpleByteSource("123456"),new SimpleByteSource("xuebw"),1));
+        Md5Hash md5Hash = new Md5Hash("123456");
         System.out.println(md5Hash);
     }
 }
