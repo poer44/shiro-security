@@ -3,7 +3,9 @@ package com.cheng.shiro.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.cheng.shiro.dao.UserDao;
 import com.cheng.shiro.vo.User;
@@ -48,5 +50,19 @@ public class UserDaoImpl implements UserDao{
             }
         });
         return list;
+    }
+
+    @Override
+    public Set<String> getPermissionByUserName(String username) {
+        Set<String> set=new HashSet<>();
+        jdbcTemplate.query("select permission from roles_permissions t1 left join user_roles t2 on t1.role_name=t2.`user_roles` where t2.username=?", new Object[]{username}, rs -> {
+            if(rs!=null) {
+                String[] pers = rs.getString("permission").split(",");
+                for (int i = 0; i < pers.length; i++) {
+                    set.add(pers[i]);
+                }
+            }
+        });
+        return set;
     }
 }

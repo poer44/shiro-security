@@ -1,10 +1,39 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">-->
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
+<!--    <title>首页</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<script>-->
+<!--    window.location.href="/shiro/test";-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>首页</title>
+    <title>test</title>
 </head>
 <body>
-首页
+<p th:text="${test}">3333</p>
+<shiro:authenticated>　　
+    登录成功！
+</shiro:authenticated>
+<shiro:notAuthenticated>
+    没有登陆
+</shiro:notAuthenticated>
+<shiro:hasRole name="admin">有admin权限</shiro:hasRole>
+<shiro:user>
+    欢迎<shiro:principal/>！
+</shiro:user>
+<shiro:guest>
+    请<a href="./login" >登录</a>
+</shiro:guest>
 </body>
 </html>

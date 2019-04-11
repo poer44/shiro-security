@@ -16,10 +16,12 @@
             <value>
                 /login.html = anon
                 /subLogin = anon
+                /test = anon
                 /testRoles = roles["admin"]
                 /testRoles1 = rolesOr["admin","admin1"]
-                /testPerms = perms["user:delete"]
-                /testPerms1 = perms["user:delete","user:updata"]
+                /testRoles2 = roles["admin","admin1"]
+                /testPerms = perms["delete"]
+                /testPerms1 = perms["view","delete"]
                 /* = authc
             </value>
         </property>

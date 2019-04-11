@@ -1,5 +1,7 @@
 package com.cheng.shiro.vo;
 
+import org.springframework.ui.Model;
+
 /**
  * @author chengchenrui
  * @version Id: User.java, v 0.1 2018/6/29 1:04 chengchenrui Exp $$
@@ -9,6 +11,7 @@ public class User {
     private String  username;
     private String  password;
     private boolean rememberMe;
+
 
     public String getUsername() {
         return username;

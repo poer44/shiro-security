@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,6 +17,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
 import com.cheng.shiro.dao.UserDao;
@@ -46,9 +48,7 @@ public class CustomRealm extends AuthorizingRealm {
     }
 
     private Set<String> getPermissionsByUserName(String username) {
-        Set<String> sets = new HashSet<>();
-        sets.add("user:delete");
-        sets.add("user:add");
+        Set<String> sets = userDao.getPermissionByUserName(username);
         return sets;
     }
 
@@ -73,6 +73,7 @@ public class CustomRealm extends AuthorizingRealm {
             password, "customRealm");
         //加盐
 //        simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username));
+        Subject subject = SecurityUtils.getSubject();
         return simpleAuthenticationInfo;
     }
 

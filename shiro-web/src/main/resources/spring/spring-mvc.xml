@@ -10,8 +10,36 @@
 
     <mvc:annotation-driven/>
     <!-- 排除静态文件 -->
-    <mvc:resources location="/" mapping="/*"/>
+    <mvc:resources location="/WEB-INF/" mapping="*"/>
+<!--    <bean id="viewResolver"-->
+<!--          class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+<!--        <property name="order" value="1" />-->
+<!--        <property name="prefix" value="/WEB-INF/" />-->
+<!--        <property name="suffix" value=".html" />-->
+<!--    </bean>-->
+<!--    开启thymeleaf-->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML" />
+        <property name="cacheable" value="false" />
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <property name="enableSpringELCompiler" value="true" />
+        <property name="additionalDialects">
+            <set>
+                <bean class="at.pollux.thymeleaf.shiro.dialect.ShiroDialect"/>
+            </set>
+        </property>
 
+    </bean>
+
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="characterEncoding"  value="UTF-8" />
+    </bean>
     <!-- 开启AOP -->
     <aop:config proxy-target-class="true"/>
 

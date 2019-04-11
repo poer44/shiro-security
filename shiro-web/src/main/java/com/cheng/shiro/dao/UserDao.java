@@ -1,6 +1,7 @@
 package com.cheng.shiro.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,6 @@ public interface UserDao {
     User getUserByUsername(String username);
 
     List<String> getRolesByUserName(String username);
+
+    Set<String> getPermissionByUserName(String username);
 }
